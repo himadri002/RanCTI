@@ -1,0 +1,349 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script>function neighbourhoodHighlight(params) {
+  // console.log("in nieghbourhoodhighlight");
+  allNodes = nodes.get({ returnType: "Object" });
+  // originalNodes = JSON.parse(JSON.stringify(allNodes));
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    highlightActive = true;
+    var i, j;
+    var selectedNode = params.nodes[0];
+    var degrees = 2;
+
+    // mark all nodes as hard to read.
+    for (let nodeId in allNodes) {
+      // nodeColors[nodeId] = allNodes[nodeId].color;
+      allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+      if (allNodes[nodeId].hiddenLabel === undefined) {
+        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+    var connectedNodes = network.getConnectedNodes(selectedNode);
+    var allConnectedNodes = [];
+
+    // get the second degree nodes
+    for (i = 1; i < degrees; i++) {
+      for (j = 0; j < connectedNodes.length; j++) {
+        allConnectedNodes = allConnectedNodes.concat(
+          network.getConnectedNodes(connectedNodes[j])
+        );
+      }
+    }
+
+    // all second degree nodes get a different color and their label back
+    for (i = 0; i < allConnectedNodes.length; i++) {
+      // allNodes[allConnectedNodes[i]].color = "pink";
+      allNodes[allConnectedNodes[i]].color = "rgba(150,150,150,0.75)";
+      if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[allConnectedNodes[i]].label =
+          allNodes[allConnectedNodes[i]].hiddenLabel;
+        allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // all first degree nodes get their own color and their label back
+    for (i = 0; i < connectedNodes.length; i++) {
+      // allNodes[connectedNodes[i]].color = undefined;
+      allNodes[connectedNodes[i]].color = nodeColors[connectedNodes[i]];
+      if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[connectedNodes[i]].label =
+          allNodes[connectedNodes[i]].hiddenLabel;
+        allNodes[connectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // the main node gets its own color and its label back.
+    // allNodes[selectedNode].color = undefined;
+    allNodes[selectedNode].color = nodeColors[selectedNode];
+    if (allNodes[selectedNode].hiddenLabel !== undefined) {
+      allNodes[selectedNode].label = allNodes[selectedNode].hiddenLabel;
+      allNodes[selectedNode].hiddenLabel = undefined;
+    }
+  } else if (highlightActive === true) {
+    // console.log("highlightActive was true");
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      // allNodes[nodeId].color = "purple";
+      allNodes[nodeId].color = nodeColors[nodeId];
+      // delete allNodes[nodeId].color;
+      if (allNodes[nodeId].hiddenLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+        allNodes[nodeId].hiddenLabel = undefined;
+      }
+    }
+    highlightActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    // console.log("Nothing was selected");
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        // allNodes[nodeId].color = {};
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function filterHighlight(params) {
+  allNodes = nodes.get({ returnType: "Object" });
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    filterActive = true;
+    let selectedNodes = params.nodes;
+
+    // hiding all nodes and saving the label
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = true;
+      if (allNodes[nodeId].savedLabel === undefined) {
+        allNodes[nodeId].savedLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+
+    for (let i=0; i < selectedNodes.length; i++) {
+      allNodes[selectedNodes[i]].hidden = false;
+      if (allNodes[selectedNodes[i]].savedLabel !== undefined) {
+        allNodes[selectedNodes[i]].label = allNodes[selectedNodes[i]].savedLabel;
+        allNodes[selectedNodes[i]].savedLabel = undefined;
+      }
+    }
+
+  } else if (filterActive === true) {
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = false;
+      if (allNodes[nodeId].savedLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].savedLabel;
+        allNodes[nodeId].savedLabel = undefined;
+      }
+    }
+    filterActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function selectNode(nodes) {
+  network.selectNodes(nodes);
+  neighbourhoodHighlight({ nodes: nodes });
+  return nodes;
+}
+
+function selectNodes(nodes) {
+  network.selectNodes(nodes);
+  filterHighlight({nodes: nodes});
+  return nodes;
+}
+
+function highlightFilter(filter) {
+  let selectedNodes = []
+  let selectedProp = filter['property']
+  if (filter['item'] === 'node') {
+    let allNodes = nodes.get({ returnType: "Object" });
+    for (let nodeId in allNodes) {
+      if (allNodes[nodeId][selectedProp] && filter['value'].includes((allNodes[nodeId][selectedProp]).toString())) {
+        selectedNodes.push(nodeId)
+      }
+    }
+  }
+  else if (filter['item'] === 'edge'){
+    let allEdges = edges.get({returnType: 'object'});
+    // check if the selected property exists for selected edge and select the nodes connected to the edge
+    for (let edge in allEdges) {
+      if (allEdges[edge][selectedProp] && filter['value'].includes((allEdges[edge][selectedProp]).toString())) {
+        selectedNodes.push(allEdges[edge]['from'])
+        selectedNodes.push(allEdges[edge]['to'])
+      }
+    }
+  }
+  selectNodes(selectedNodes)
+}</script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+            
+            
+            
+            
+            
+
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"aliases": "Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_hades", "label": "Threat Actor Hades", "shape": "dot", "size": 10}, {"aliases": "PayloadBIN|Malware PayloadBIN|Malware Conti|Malware Hive", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_payloadbin", "label": "PayloadBIN", "shape": "dot", "size": 10}, {"aliases": "Phoenix Locker", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_phoenix_locker", "label": "Phoenix Locker", "shape": "dot", "size": 10}, {"aliases": "Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Lead|Threat Actor Hades|Threat Actor Conti|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_conti", "label": "Threat Actor Conti", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|WastedLocker|Malware LockBit|WastedLocker ransomware|Malware Macaw Locker|Malware Phoenix Locker", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_wastedlocker", "label": "WastedLocker", "shape": "dot", "size": 10}, {"aliases": "Russia", "color": "#97c2fc", "entity_class": "Location", "id": "location_russia", "label": "Russia", "shape": "dot", "size": 10}, {"aliases": "Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_indrik_spider", "label": "Threat Actor Indrik Spider", "shape": "dot", "size": 10}, {"aliases": "Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Hades|Threat Actor FIN6|Threat Actor DarkSide|Evil Corp|Threat Actor Conti|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_evil_corp", "label": "Evil Corp", "shape": "dot", "size": 10}, {"aliases": "CobaltStrike|Cobalt Strike", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_cobalt_strike", "label": "Cobalt Strike", "shape": "dot", "size": 10}, {"aliases": "BitPaymer", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_bitpaymer", "label": "BitPaymer", "shape": "dot", "size": 10}, {"aliases": "Dridex", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_dridex", "label": "Dridex", "shape": "dot", "size": 10}, {"aliases": "Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_lead", "label": "Threat Actor Lead", "shape": "dot", "size": 10}, {"aliases": "BleDoor", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_bledoor", "label": "BleDoor", "shape": "dot", "size": 10}, {"aliases": "CobaltStrike|Cobalt Strike", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_cobaltstrike", "label": "CobaltStrike", "shape": "dot", "size": 10}, {"aliases": "cobeacon", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_cobeacon", "label": "cobeacon", "shape": "dot", "size": 10}, {"aliases": "Agentemis", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_agentemis", "label": "Agentemis", "shape": "dot", "size": 10}, {"aliases": "RbDoor", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_rbdoor", "label": "RbDoor", "shape": "dot", "size": 10}, {"aliases": "Winnti", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_winnti", "label": "Winnti", "shape": "dot", "size": 10}, {"aliases": "Threat Actor FIN6|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_fin6", "label": "Threat Actor FIN6", "shape": "dot", "size": 10}, {"aliases": "Ryuk", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_ryuk", "label": "Ryuk", "shape": "dot", "size": 10}, {"aliases": "Malware Anchor|Malware Anchor_DNS|Anchor_DNS", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_anchor_dns", "label": "Anchor_DNS", "shape": "dot", "size": 10}, {"aliases": "LockerGoga", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_lockergoga", "label": "LockerGoga", "shape": "dot", "size": 10}, {"aliases": "PsExec", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_psexec", "label": "PsExec", "shape": "dot", "size": 10}, {"aliases": "Anchor", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_anchor", "label": "Anchor", "shape": "dot", "size": 10}, {"aliases": "Mimikatz", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_mimikatz", "label": "Mimikatz", "shape": "dot", "size": 10}, {"aliases": "Meterpreter", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_meterpreter", "label": "Meterpreter", "shape": "dot", "size": 10}, {"aliases": "AdFind", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_adfind", "label": "AdFind", "shape": "dot", "size": 10}, {"aliases": "Malware TrickBot|TrickBot", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_trickbot", "label": "Malware TrickBot", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|WastedLocker ransomware|Malware Avaddon|Malware Conti|Malware WastedLocker|Malware LockBit|Ryuk ransomware|Malware Macaw Locker|Malware Phoenix Locker", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_ryuk_ransomware", "label": "Ryuk ransomware", "shape": "dot", "size": 10}, {"aliases": "phishing campaigns", "color": "#97c2fc", "entity_class": "Event", "id": "event_phishing_campaigns", "label": "phishing campaigns", "shape": "dot", "size": 10}, {"aliases": "JavaScript Downloader", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_javascript_downloader", "label": "JavaScript Downloader", "shape": "dot", "size": 10}, {"aliases": "Empire", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_empire", "label": "Empire", "shape": "dot", "size": 10}, {"aliases": "Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_conti_ransomware", "label": "Conti ransomware", "shape": "dot", "size": 10}, {"aliases": "Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_socgholish", "label": "Malware SocGholish", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|Ryuk ransomware|Malware Avaddon|Malware Conti|Malware WastedLocker|Malware LockBit|WastedLocker ransomware|Malware Macaw Locker|Malware Phoenix Locker", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_wastedlocker_ransomware", "label": "WastedLocker ransomware", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|Malware LockBit", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_wastedlocker", "label": "Malware WastedLocker", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|Malware Hades|Malware Avaddon|Malware WastedLocker|Malware LockBit", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_hades", "label": "Malware Hades", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|WastedLocker ransomware|Malware Avaddon|Malware Conti|Malware WastedLocker|Malware LockBit|Ryuk ransomware|Malware Macaw Locker|Malware Phoenix Locker", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_phoenix_locker", "label": "Malware Phoenix Locker", "shape": "dot", "size": 10}, {"aliases": "Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_payloadbin", "label": "Malware PayloadBIN", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|WastedLocker ransomware|Malware Avaddon|Malware Conti|Malware WastedLocker|Malware LockBit|Ryuk ransomware|Malware Macaw Locker|Malware Phoenix Locker", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_macaw_locker", "label": "Malware Macaw Locker", "shape": "dot", "size": 10}, {"aliases": "indirect API calls", "color": "#97c2fc", "entity_class": "Malware Characteristic:Behavior", "id": "malware_characteristic_behavior_indirect_api_calls", "label": "indirect API calls", "shape": "dot", "size": 10}, {"aliases": "custom token for execution", "color": "#97c2fc", "entity_class": "Malware Characteristic:Feature", "id": "malware_characteristic_feature_custom_token_for_execution", "label": "custom token for execution", "shape": "dot", "size": 10}, {"aliases": "Hades", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_hades", "label": "Hades", "shape": "dot", "size": 10}, {"aliases": "Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_evil_corp", "label": "Threat Actor Evil Corp", "shape": "dot", "size": 10}, {"aliases": "SocGholish|Malware SocGholish", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_socgholish", "label": "SocGholish", "shape": "dot", "size": 10}, {"aliases": "Malware Hades|Malware Anchor|Malware Conti|Malware PayloadBIN|Malware Hive", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_anchor", "label": "Malware Anchor", "shape": "dot", "size": 10}, {"aliases": "Malware TrickBot|TrickBot", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_trickbot", "label": "TrickBot", "shape": "dot", "size": 10}, {"aliases": "Malware Anchor|Malware Anchor_DNS|Anchor_DNS", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_anchor_dns", "label": "Malware Anchor_DNS", "shape": "dot", "size": 10}, {"aliases": "ICMP", "color": "#97c2fc", "entity_class": "Infrastructure", "id": "infrastructure_icmp", "label": "ICMP", "shape": "dot", "size": 10}, {"aliases": "DNS", "color": "#97c2fc", "entity_class": "Infrastructure", "id": "infrastructure_dns", "label": "DNS", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|Malware LockBit", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_darkside", "label": "Malware DarkSide", "shape": "dot", "size": 10}, {"aliases": "RSA-1024", "color": "#97c2fc", "entity_class": "Malware Characteristic:Capability", "id": "malware_characteristic_capability_rsa-1024", "label": "RSA-1024", "shape": "dot", "size": 10}, {"aliases": "Salsa20", "color": "#97c2fc", "entity_class": "Malware Characteristic:Capability", "id": "malware_characteristic_capability_salsa20", "label": "Salsa20", "shape": "dot", "size": 10}, {"aliases": "data leak sites", "color": "#97c2fc", "entity_class": "Infrastructure", "id": "infrastructure_data_leak_sites", "label": "data leak sites", "shape": "dot", "size": 10}, {"aliases": "Threat Actor Indrik Spider|Threat Actor Hades|Threat Actor DarkSide|Threat Actor Conti|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_darkside", "label": "Threat Actor DarkSide", "shape": "dot", "size": 10}, {"aliases": "Colonial Pipeline", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_colonial_pipeline", "label": "Colonial Pipeline", "shape": "dot", "size": 10}, {"aliases": "medical, educational non-profits", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_medical_educational_non-profits", "label": "medical, educational non-profits", "shape": "dot", "size": 10}, {"aliases": "Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_hive", "label": "Malware Hive", "shape": "dot", "size": 10}, {"aliases": "double-extortion", "color": "#97c2fc", "entity_class": "Malware Characteristic:Capability", "id": "malware_characteristic_capability_double-extortion", "label": "double-extortion", "shape": "dot", "size": 10}, {"aliases": "7-Zip|WinRAR", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_7-zip", "label": "7-Zip", "shape": "dot", "size": 10}, {"aliases": "MEGA", "color": "#97c2fc", "entity_class": "Infrastructure", "id": "infrastructure_mega", "label": "MEGA", "shape": "dot", "size": 10}, {"aliases": "Rclone", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_rclone", "label": "Rclone", "shape": "dot", "size": 10}, {"aliases": "Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_hive", "label": "Threat Actor Hive", "shape": "dot", "size": 10}, {"aliases": "Insurance", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_insurance", "label": "Insurance", "shape": "dot", "size": 10}, {"aliases": "Technology", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_technology", "label": "Technology", "shape": "dot", "size": 10}, {"aliases": "small and medium sized business", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_small_and_medium_sized_business", "label": "small and medium sized business", "shape": "dot", "size": 10}, {"aliases": "Manufacturing", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_manufacturing", "label": "Manufacturing", "shape": "dot", "size": 10}, {"aliases": "Healthcare", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_healthcare", "label": "Healthcare", "shape": "dot", "size": 10}, {"aliases": "Business Services", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_business_services", "label": "Business Services", "shape": "dot", "size": 10}, {"aliases": "Transportation", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_transportation", "label": "Transportation", "shape": "dot", "size": 10}, {"aliases": "call-back phishing", "color": "#97c2fc", "entity_class": "Event", "id": "event_call-back_phishing", "label": "call-back phishing", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|Malware LockBit", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_lockbit", "label": "Malware LockBit", "shape": "dot", "size": 10}, {"aliases": "StealBit", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_stealbit", "label": "StealBit", "shape": "dot", "size": 10}, {"aliases": "AnyDesk", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_anydesk", "label": "AnyDesk", "shape": "dot", "size": 10}, {"aliases": "7-Zip|WinRAR", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_winrar", "label": "WinRAR", "shape": "dot", "size": 10}, {"aliases": "Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp", "color": "#97c2fc", "entity_class": "Attacker", "id": "attacker_threat_actor_lockbit", "label": "Threat Actor LockBit", "shape": "dot", "size": 10}, {"aliases": "Education", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_education", "label": "Education", "shape": "dot", "size": 10}, {"aliases": "RDP", "color": "#97c2fc", "entity_class": "Credential", "id": "credential_rdp", "label": "RDP", "shape": "dot", "size": 10}, {"aliases": "VPN", "color": "#97c2fc", "entity_class": "Credential", "id": "credential_vpn", "label": "VPN", "shape": "dot", "size": 10}, {"aliases": "Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_conti", "label": "Malware Conti", "shape": "dot", "size": 10}, {"aliases": "LSASS credential dumping", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_lsass_credential_dumping", "label": "LSASS credential dumping", "shape": "dot", "size": 10}, {"aliases": "First Responders", "color": "#97c2fc", "entity_class": "Organization", "id": "organization_first_responders", "label": "First Responders", "shape": "dot", "size": 10}, {"aliases": "CVE-2018-13379", "color": "#97c2fc", "entity_class": "Vulnerability", "id": "vulnerability_cve-2018-13379", "label": "CVE-2018-13379", "shape": "dot", "size": 10}, {"aliases": "Kerberoasting", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_kerberoasting", "label": "Kerberoasting", "shape": "dot", "size": 10}, {"aliases": "CVE-2021-34527", "color": "#97c2fc", "entity_class": "Vulnerability", "id": "vulnerability_cve-2021-34527", "label": "CVE-2021-34527", "shape": "dot", "size": 10}, {"aliases": "CVE-2020-1472", "color": "#97c2fc", "entity_class": "Vulnerability", "id": "vulnerability_cve-2020-1472", "label": "CVE-2020-1472", "shape": "dot", "size": 10}, {"aliases": "Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|Malware LockBit", "color": "#97c2fc", "entity_class": "Malware", "id": "malware_malware_avaddon", "label": "Malware Avaddon", "shape": "dot", "size": 10}, {"aliases": "PowerShell scripts", "color": "#97c2fc", "entity_class": "Tool", "id": "tool_powershell_scripts", "label": "PowerShell scripts", "shape": "dot", "size": 10}, {"aliases": "Phorpiex/Trik botnet", "color": "#97c2fc", "entity_class": "Infrastructure", "id": "infrastructure_phorpiextrik_botnet", "label": "Phorpiex/Trik botnet", "shape": "dot", "size": 10}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "attacker_threat_actor_hades", "relation": "uses", "to": "malware_payloadbin", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hades", "relation": "uses", "to": "malware_phoenix_locker", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hades", "relation": "PREDICTED:is", "to": "attacker_threat_actor_conti", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hades", "relation": "uses", "to": "malware_wastedlocker", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hades", "relation": "is backed by", "to": "location_russia", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_indrik_spider", "relation": "uses", "to": "malware_wastedlocker", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_indrik_spider", "relation": "is also known as", "to": "attacker_evil_corp", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_indrik_spider", "relation": "uses", "to": "tool_cobalt_strike", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_indrik_spider", "relation": "uses", "to": "malware_bitpaymer", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_indrik_spider", "relation": "uses", "to": "malware_dridex", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lead", "relation": "uses", "to": "malware_bledoor", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lead", "relation": "uses", "to": "tool_cobalt_strike", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lead", "relation": "uses", "to": "tool_cobaltstrike", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lead", "relation": "uses", "to": "tool_cobeacon", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lead", "relation": "uses", "to": "malware_agentemis", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lead", "relation": "uses", "to": "malware_rbdoor", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lead", "relation": "uses", "to": "malware_winnti", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "malware_ryuk", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "malware_anchor_dns", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "deploys", "to": "malware_anchor_dns", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "malware_lockergoga", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "tool_psexec", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "tool_cobalt_strike", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "malware_anchor", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "tool_mimikatz", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "tool_meterpreter", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_fin6", "relation": "uses", "to": "tool_adfind", "width": 1}, {"arrows": "to", "from": "malware_malware_trickbot", "relation": "delivers", "to": "malware_ryuk_ransomware", "width": 1}, {"arrows": "to", "from": "malware_malware_trickbot", "relation": "is delivered by", "to": "event_phishing_campaigns", "width": 1}, {"arrows": "to", "from": "malware_malware_trickbot", "relation": "uses", "to": "malware_javascript_downloader", "width": 1}, {"arrows": "to", "from": "malware_malware_trickbot", "relation": "uses", "to": "tool_empire", "width": 1}, {"arrows": "to", "from": "malware_malware_trickbot", "relation": "delivers", "to": "malware_conti_ransomware", "width": 1}, {"arrows": "to", "from": "malware_malware_trickbot", "relation": "uses", "to": "tool_cobalt_strike", "width": 1}, {"arrows": "to", "from": "malware_malware_socgholish", "relation": "delivers", "to": "malware_wastedlocker_ransomware", "width": 1}, {"arrows": "to", "from": "malware_malware_socgholish", "relation": "is used by", "to": "attacker_evil_corp", "width": 1}, {"arrows": "to", "from": "malware_malware_wastedlocker", "relation": "is used by", "to": "attacker_evil_corp", "width": 1}, {"arrows": "to", "from": "malware_malware_hades", "relation": "is deployed by", "to": "attacker_evil_corp", "width": 1}, {"arrows": "to", "from": "malware_malware_phoenix_locker", "relation": "is deployed by", "to": "attacker_evil_corp", "width": 1}, {"arrows": "to", "from": "malware_malware_payloadbin", "relation": "is derived from", "to": "malware_phoenix_locker", "width": 1}, {"arrows": "to", "from": "malware_malware_macaw_locker", "relation": "uses", "to": "malware_characteristic_behavior_indirect_api_calls", "width": 1}, {"arrows": "to", "from": "malware_malware_macaw_locker", "relation": "requires", "to": "malware_characteristic_feature_custom_token_for_execution", "width": 1}, {"arrows": "to", "from": "malware_malware_macaw_locker", "relation": "is derived from", "to": "malware_hades", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_evil_corp", "relation": "uses", "to": "malware_socgholish", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_evil_corp", "relation": "uses", "to": "tool_cobalt_strike", "width": 1}, {"arrows": "to", "from": "malware_malware_anchor", "relation": "is deployed by", "to": "malware_trickbot", "width": 1}, {"arrows": "to", "from": "malware_malware_anchor_dns", "relation": "is variant of", "to": "malware_anchor", "width": 1}, {"arrows": "to", "from": "malware_malware_anchor_dns", "relation": "communicates over", "to": "infrastructure_icmp", "width": 1}, {"arrows": "to", "from": "malware_malware_anchor_dns", "relation": "communicates over", "to": "infrastructure_dns", "width": 1}, {"arrows": "to", "from": "malware_malware_darkside", "relation": "uses", "to": "malware_characteristic_capability_rsa-1024", "width": 1}, {"arrows": "to", "from": "malware_malware_darkside", "relation": "uses", "to": "malware_characteristic_capability_salsa20", "width": 1}, {"arrows": "to", "from": "malware_malware_darkside", "relation": "delivers", "to": "infrastructure_data_leak_sites", "width": 1}, {"arrows": "to", "from": "malware_malware_darkside", "relation": "uses", "to": "tool_cobalt_strike", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_darkside", "relation": "attacked", "to": "organization_colonial_pipeline", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_darkside", "relation": "avoids", "to": "organization_medical_educational_non-profits", "width": 1}, {"arrows": "to", "from": "malware_malware_hive", "relation": "uses", "to": "malware_characteristic_capability_double-extortion", "width": 1}, {"arrows": "to", "from": "malware_malware_hive", "relation": "uses", "to": "tool_7-zip", "width": 1}, {"arrows": "to", "from": "malware_malware_hive", "relation": "uses", "to": "infrastructure_mega", "width": 1}, {"arrows": "to", "from": "malware_malware_hive", "relation": "uses", "to": "tool_rclone", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hive", "relation": "targets", "to": "organization_insurance", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hive", "relation": "targets", "to": "organization_technology", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hive", "relation": "attacks", "to": "organization_small_and_medium_sized_business", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hive", "relation": "targets", "to": "organization_manufacturing", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hive", "relation": "targets", "to": "organization_healthcare", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hive", "relation": "targets", "to": "organization_business_services", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hive", "relation": "targets", "to": "organization_transportation", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_hive", "relation": "engages in", "to": "event_call-back_phishing", "width": 1}, {"arrows": "to", "from": "malware_malware_lockbit", "relation": "uses", "to": "tool_stealbit", "width": 1}, {"arrows": "to", "from": "malware_malware_lockbit", "relation": "uses", "to": "tool_anydesk", "width": 1}, {"arrows": "to", "from": "malware_malware_lockbit", "relation": "uses", "to": "tool_psexec", "width": 1}, {"arrows": "to", "from": "malware_malware_lockbit", "relation": "uses", "to": "tool_winrar", "width": 1}, {"arrows": "to", "from": "malware_malware_lockbit", "relation": "uses", "to": "tool_cobalt_strike", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lockbit", "relation": "targets", "to": "organization_education", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lockbit", "relation": "uses", "to": "credential_rdp", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lockbit", "relation": "targets", "to": "organization_healthcare", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_lockbit", "relation": "uses", "to": "credential_vpn", "width": 1}, {"arrows": "to", "from": "malware_malware_conti", "relation": "uses", "to": "tool_cobalt_strike", "width": 1}, {"arrows": "to", "from": "malware_malware_conti", "relation": "uses", "to": "tool_mimikatz", "width": 1}, {"arrows": "to", "from": "malware_malware_conti", "relation": "uses", "to": "tool_psexec", "width": 1}, {"arrows": "to", "from": "malware_malware_conti", "relation": "deployed by", "to": "malware_trickbot", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_conti", "relation": "uses", "to": "tool_lsass_credential_dumping", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_conti", "relation": "targets", "to": "organization_first_responders", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_conti", "relation": "exploits", "to": "vulnerability_cve-2018-13379", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_conti", "relation": "targets", "to": "organization_healthcare", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_conti", "relation": "uses", "to": "tool_kerberoasting", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_conti", "relation": "exploits", "to": "vulnerability_cve-2021-34527", "width": 1}, {"arrows": "to", "from": "attacker_threat_actor_conti", "relation": "exploits", "to": "vulnerability_cve-2020-1472", "width": 1}, {"arrows": "to", "from": "malware_malware_avaddon", "relation": "uses", "to": "tool_powershell_scripts", "width": 1}, {"arrows": "to", "from": "malware_malware_avaddon", "relation": "is delivered by", "to": "infrastructure_phorpiextrik_botnet", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

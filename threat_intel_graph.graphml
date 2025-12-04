@@ -1,0 +1,718 @@
+<?xml version="1.0" ?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d0" for="node" attr.name="label" attr.type="string"/>
+  <key id="d1" for="node" attr.name="entity_class" attr.type="string"/>
+  <key id="d2" for="node" attr.name="aliases" attr.type="string"/>
+  <key id="d3" for="edge" attr.name="relation" attr.type="string"/>
+  <graph id="ThreatIntelGraph" edgedefault="directed">
+    <node id="attacker_threat_actor_hades">
+      <data key="d0">Threat Actor Hades</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="location_russia">
+      <data key="d0">Russia</data>
+      <data key="d1">Location</data>
+      <data key="d2">Russia</data>
+    </node>
+    <node id="malware_wastedlocker">
+      <data key="d0">WastedLocker</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|WastedLocker|Malware LockBit|WastedLocker ransomware|Malware Macaw Locker|Malware Phoenix Locker</data>
+    </node>
+    <node id="malware_phoenix_locker">
+      <data key="d0">Phoenix Locker</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Phoenix Locker</data>
+    </node>
+    <node id="malware_payloadbin">
+      <data key="d0">PayloadBIN</data>
+      <data key="d1">Malware</data>
+      <data key="d2">PayloadBIN|Malware PayloadBIN|Malware Conti|Malware Hive</data>
+    </node>
+    <node id="attacker_threat_actor_indrik_spider">
+      <data key="d0">Threat Actor Indrik Spider</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="attacker_evil_corp">
+      <data key="d0">Evil Corp</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Hades|Threat Actor FIN6|Threat Actor DarkSide|Evil Corp|Threat Actor Conti|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="malware_dridex">
+      <data key="d0">Dridex</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Dridex</data>
+    </node>
+    <node id="malware_bitpaymer">
+      <data key="d0">BitPaymer</data>
+      <data key="d1">Malware</data>
+      <data key="d2">BitPaymer</data>
+    </node>
+    <node id="tool_cobalt_strike">
+      <data key="d0">Cobalt Strike</data>
+      <data key="d1">Tool</data>
+      <data key="d2">CobaltStrike|Cobalt Strike</data>
+    </node>
+    <node id="attacker_threat_actor_lead">
+      <data key="d0">Threat Actor Lead</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="malware_agentemis">
+      <data key="d0">Agentemis</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Agentemis</data>
+    </node>
+    <node id="malware_bledoor">
+      <data key="d0">BleDoor</data>
+      <data key="d1">Malware</data>
+      <data key="d2">BleDoor</data>
+    </node>
+    <node id="malware_winnti">
+      <data key="d0">Winnti</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Winnti</data>
+    </node>
+    <node id="attacker_threat_actor_fin6">
+      <data key="d0">Threat Actor FIN6</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor FIN6|Threat Actor Evil Corp</data>
+    </node>
+    <node id="malware_anchor_dns">
+      <data key="d0">Anchor_DNS</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware Anchor|Malware Anchor_DNS|Anchor_DNS</data>
+    </node>
+    <node id="tool_mimikatz">
+      <data key="d0">Mimikatz</data>
+      <data key="d1">Tool</data>
+      <data key="d2">Mimikatz</data>
+    </node>
+    <node id="tool_psexec">
+      <data key="d0">PsExec</data>
+      <data key="d1">Tool</data>
+      <data key="d2">PsExec</data>
+    </node>
+    <node id="malware_lockergoga">
+      <data key="d0">LockerGoga</data>
+      <data key="d1">Malware</data>
+      <data key="d2">LockerGoga</data>
+    </node>
+    <node id="malware_ryuk">
+      <data key="d0">Ryuk</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Ryuk</data>
+    </node>
+    <node id="tool_adfind">
+      <data key="d0">AdFind</data>
+      <data key="d1">Tool</data>
+      <data key="d2">AdFind</data>
+    </node>
+    <node id="malware_malware_trickbot">
+      <data key="d0">Malware TrickBot</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware TrickBot|TrickBot</data>
+    </node>
+    <node id="event_phishing_campaigns">
+      <data key="d0">phishing campaigns</data>
+      <data key="d1">Event</data>
+      <data key="d2">phishing campaigns</data>
+    </node>
+    <node id="malware_javascript_downloader">
+      <data key="d0">JavaScript Downloader</data>
+      <data key="d1">Malware</data>
+      <data key="d2">JavaScript Downloader</data>
+    </node>
+    <node id="malware_ryuk_ransomware">
+      <data key="d0">Ryuk ransomware</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|WastedLocker ransomware|Malware Avaddon|Malware Conti|Malware WastedLocker|Malware LockBit|Ryuk ransomware|Malware Macaw Locker|Malware Phoenix Locker</data>
+    </node>
+    <node id="malware_conti_ransomware">
+      <data key="d0">Conti ransomware</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive</data>
+    </node>
+    <node id="tool_empire">
+      <data key="d0">Empire</data>
+      <data key="d1">Tool</data>
+      <data key="d2">Empire</data>
+    </node>
+    <node id="malware_malware_socgholish">
+      <data key="d0">Malware SocGholish</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive</data>
+    </node>
+    <node id="malware_wastedlocker_ransomware">
+      <data key="d0">WastedLocker ransomware</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|Ryuk ransomware|Malware Avaddon|Malware Conti|Malware WastedLocker|Malware LockBit|WastedLocker ransomware|Malware Macaw Locker|Malware Phoenix Locker</data>
+    </node>
+    <node id="malware_malware_wastedlocker">
+      <data key="d0">Malware WastedLocker</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|Malware LockBit</data>
+    </node>
+    <node id="malware_malware_hades">
+      <data key="d0">Malware Hades</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|Malware Hades|Malware Avaddon|Malware WastedLocker|Malware LockBit</data>
+    </node>
+    <node id="malware_malware_phoenix_locker">
+      <data key="d0">Malware Phoenix Locker</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|WastedLocker ransomware|Malware Avaddon|Malware Conti|Malware WastedLocker|Malware LockBit|Ryuk ransomware|Malware Macaw Locker|Malware Phoenix Locker</data>
+    </node>
+    <node id="malware_malware_payloadbin">
+      <data key="d0">Malware PayloadBIN</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive</data>
+    </node>
+    <node id="malware_malware_macaw_locker">
+      <data key="d0">Malware Macaw Locker</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|WastedLocker ransomware|Malware Avaddon|Malware Conti|Malware WastedLocker|Malware LockBit|Ryuk ransomware|Malware Macaw Locker|Malware Phoenix Locker</data>
+    </node>
+    <node id="malware_hades">
+      <data key="d0">Hades</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Hades</data>
+    </node>
+    <node id="malware_characteristic_behavior_indirect_api_calls">
+      <data key="d0">indirect API calls</data>
+      <data key="d1">Malware Characteristic:Behavior</data>
+      <data key="d2">indirect API calls</data>
+    </node>
+    <node id="malware_characteristic_feature_custom_token_for_execution">
+      <data key="d0">custom token for execution</data>
+      <data key="d1">Malware Characteristic:Feature</data>
+      <data key="d2">custom token for execution</data>
+    </node>
+    <node id="attacker_threat_actor_evil_corp">
+      <data key="d0">Threat Actor Evil Corp</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="malware_socgholish">
+      <data key="d0">SocGholish</data>
+      <data key="d1">Malware</data>
+      <data key="d2">SocGholish|Malware SocGholish</data>
+    </node>
+    <node id="malware_rbdoor">
+      <data key="d0">RbDoor</data>
+      <data key="d1">Malware</data>
+      <data key="d2">RbDoor</data>
+    </node>
+    <node id="tool_cobaltstrike">
+      <data key="d0">CobaltStrike</data>
+      <data key="d1">Tool</data>
+      <data key="d2">CobaltStrike|Cobalt Strike</data>
+    </node>
+    <node id="tool_cobeacon">
+      <data key="d0">cobeacon</data>
+      <data key="d1">Tool</data>
+      <data key="d2">cobeacon</data>
+    </node>
+    <node id="malware_malware_anchor">
+      <data key="d0">Malware Anchor</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware Hades|Malware Anchor|Malware Conti|Malware PayloadBIN|Malware Hive</data>
+    </node>
+    <node id="malware_trickbot">
+      <data key="d0">TrickBot</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware TrickBot|TrickBot</data>
+    </node>
+    <node id="malware_malware_anchor_dns">
+      <data key="d0">Malware Anchor_DNS</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware Anchor|Malware Anchor_DNS|Anchor_DNS</data>
+    </node>
+    <node id="malware_anchor">
+      <data key="d0">Anchor</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Anchor</data>
+    </node>
+    <node id="infrastructure_dns">
+      <data key="d0">DNS</data>
+      <data key="d1">Infrastructure</data>
+      <data key="d2">DNS</data>
+    </node>
+    <node id="infrastructure_icmp">
+      <data key="d0">ICMP</data>
+      <data key="d1">Infrastructure</data>
+      <data key="d2">ICMP</data>
+    </node>
+    <node id="tool_meterpreter">
+      <data key="d0">Meterpreter</data>
+      <data key="d1">Tool</data>
+      <data key="d2">Meterpreter</data>
+    </node>
+    <node id="malware_malware_darkside">
+      <data key="d0">Malware DarkSide</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|Malware LockBit</data>
+    </node>
+    <node id="malware_characteristic_capability_salsa20">
+      <data key="d0">Salsa20</data>
+      <data key="d1">Malware Characteristic:Capability</data>
+      <data key="d2">Salsa20</data>
+    </node>
+    <node id="malware_characteristic_capability_rsa-1024">
+      <data key="d0">RSA-1024</data>
+      <data key="d1">Malware Characteristic:Capability</data>
+      <data key="d2">RSA-1024</data>
+    </node>
+    <node id="infrastructure_data_leak_sites">
+      <data key="d0">data leak sites</data>
+      <data key="d1">Infrastructure</data>
+      <data key="d2">data leak sites</data>
+    </node>
+    <node id="attacker_threat_actor_darkside">
+      <data key="d0">Threat Actor DarkSide</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hades|Threat Actor DarkSide|Threat Actor Conti|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="organization_colonial_pipeline">
+      <data key="d0">Colonial Pipeline</data>
+      <data key="d1">Organization</data>
+      <data key="d2">Colonial Pipeline</data>
+    </node>
+    <node id="organization_medical_educational_non-profits">
+      <data key="d0">medical, educational non-profits</data>
+      <data key="d1">Organization</data>
+      <data key="d2">medical, educational non-profits</data>
+    </node>
+    <node id="malware_malware_hive">
+      <data key="d0">Malware Hive</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive</data>
+    </node>
+    <node id="malware_characteristic_capability_double-extortion">
+      <data key="d0">double-extortion</data>
+      <data key="d1">Malware Characteristic:Capability</data>
+      <data key="d2">double-extortion</data>
+    </node>
+    <node id="tool_7-zip">
+      <data key="d0">7-Zip</data>
+      <data key="d1">Tool</data>
+      <data key="d2">7-Zip|WinRAR</data>
+    </node>
+    <node id="infrastructure_mega">
+      <data key="d0">MEGA</data>
+      <data key="d1">Infrastructure</data>
+      <data key="d2">MEGA</data>
+    </node>
+    <node id="tool_rclone">
+      <data key="d0">Rclone</data>
+      <data key="d1">Tool</data>
+      <data key="d2">Rclone</data>
+    </node>
+    <node id="attacker_threat_actor_hive">
+      <data key="d0">Threat Actor Hive</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="organization_healthcare">
+      <data key="d0">Healthcare</data>
+      <data key="d1">Organization</data>
+      <data key="d2">Healthcare</data>
+    </node>
+    <node id="organization_transportation">
+      <data key="d0">Transportation</data>
+      <data key="d1">Organization</data>
+      <data key="d2">Transportation</data>
+    </node>
+    <node id="organization_technology">
+      <data key="d0">Technology</data>
+      <data key="d1">Organization</data>
+      <data key="d2">Technology</data>
+    </node>
+    <node id="organization_insurance">
+      <data key="d0">Insurance</data>
+      <data key="d1">Organization</data>
+      <data key="d2">Insurance</data>
+    </node>
+    <node id="organization_manufacturing">
+      <data key="d0">Manufacturing</data>
+      <data key="d1">Organization</data>
+      <data key="d2">Manufacturing</data>
+    </node>
+    <node id="organization_business_services">
+      <data key="d0">Business Services</data>
+      <data key="d1">Organization</data>
+      <data key="d2">Business Services</data>
+    </node>
+    <node id="organization_small_and_medium_sized_business">
+      <data key="d0">small and medium sized business</data>
+      <data key="d1">Organization</data>
+      <data key="d2">small and medium sized business</data>
+    </node>
+    <node id="event_call-back_phishing">
+      <data key="d0">call-back phishing</data>
+      <data key="d1">Event</data>
+      <data key="d2">call-back phishing</data>
+    </node>
+    <node id="malware_malware_lockbit">
+      <data key="d0">Malware LockBit</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|Malware LockBit</data>
+    </node>
+    <node id="tool_stealbit">
+      <data key="d0">StealBit</data>
+      <data key="d1">Tool</data>
+      <data key="d2">StealBit</data>
+    </node>
+    <node id="tool_winrar">
+      <data key="d0">WinRAR</data>
+      <data key="d1">Tool</data>
+      <data key="d2">7-Zip|WinRAR</data>
+    </node>
+    <node id="tool_anydesk">
+      <data key="d0">AnyDesk</data>
+      <data key="d1">Tool</data>
+      <data key="d2">AnyDesk</data>
+    </node>
+    <node id="attacker_threat_actor_lockbit">
+      <data key="d0">Threat Actor LockBit</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Conti|Threat Actor Hades|Threat Actor Lead|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="organization_education">
+      <data key="d0">Education</data>
+      <data key="d1">Organization</data>
+      <data key="d2">Education</data>
+    </node>
+    <node id="credential_rdp">
+      <data key="d0">RDP</data>
+      <data key="d1">Credential</data>
+      <data key="d2">RDP</data>
+    </node>
+    <node id="credential_vpn">
+      <data key="d0">VPN</data>
+      <data key="d1">Credential</data>
+      <data key="d2">VPN</data>
+    </node>
+    <node id="malware_malware_conti">
+      <data key="d0">Malware Conti</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Conti ransomware|Malware DarkSide|Malware SocGholish|Malware Hades|Malware PayloadBIN|Malware Conti|Malware LockBit|Malware Hive</data>
+    </node>
+    <node id="attacker_threat_actor_conti">
+      <data key="d0">Threat Actor Conti</data>
+      <data key="d1">Attacker</data>
+      <data key="d2">Threat Actor Indrik Spider|Threat Actor Hive|Threat Actor Lead|Threat Actor Hades|Threat Actor Conti|Threat Actor LockBit|Threat Actor Evil Corp</data>
+    </node>
+    <node id="organization_first_responders">
+      <data key="d0">First Responders</data>
+      <data key="d1">Organization</data>
+      <data key="d2">First Responders</data>
+    </node>
+    <node id="tool_lsass_credential_dumping">
+      <data key="d0">LSASS credential dumping</data>
+      <data key="d1">Tool</data>
+      <data key="d2">LSASS credential dumping</data>
+    </node>
+    <node id="tool_kerberoasting">
+      <data key="d0">Kerberoasting</data>
+      <data key="d1">Tool</data>
+      <data key="d2">Kerberoasting</data>
+    </node>
+    <node id="vulnerability_cve-2018-13379">
+      <data key="d0">CVE-2018-13379</data>
+      <data key="d1">Vulnerability</data>
+      <data key="d2">CVE-2018-13379</data>
+    </node>
+    <node id="vulnerability_cve-2020-1472">
+      <data key="d0">CVE-2020-1472</data>
+      <data key="d1">Vulnerability</data>
+      <data key="d2">CVE-2020-1472</data>
+    </node>
+    <node id="vulnerability_cve-2021-34527">
+      <data key="d0">CVE-2021-34527</data>
+      <data key="d1">Vulnerability</data>
+      <data key="d2">CVE-2021-34527</data>
+    </node>
+    <node id="malware_malware_avaddon">
+      <data key="d0">Malware Avaddon</data>
+      <data key="d1">Malware</data>
+      <data key="d2">Malware DarkSide|Malware Avaddon|Malware Hades|Malware WastedLocker|Malware LockBit</data>
+    </node>
+    <node id="infrastructure_phorpiextrik_botnet">
+      <data key="d0">Phorpiex/Trik botnet</data>
+      <data key="d1">Infrastructure</data>
+      <data key="d2">Phorpiex/Trik botnet</data>
+    </node>
+    <node id="tool_powershell_scripts">
+      <data key="d0">PowerShell scripts</data>
+      <data key="d1">Tool</data>
+      <data key="d2">PowerShell scripts</data>
+    </node>
+    <edge id="e0" source="malware_malware_lockbit" target="tool_stealbit">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e1" source="attacker_threat_actor_fin6" target="malware_ryuk">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e2" source="malware_malware_anchor" target="malware_trickbot">
+      <data key="d3">is deployed by</data>
+    </edge>
+    <edge id="e3" source="malware_malware_darkside" target="malware_characteristic_capability_rsa-1024">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e4" source="attacker_threat_actor_hive" target="organization_insurance">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e5" source="malware_malware_darkside" target="malware_characteristic_capability_salsa20">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e6" source="attacker_threat_actor_hive" target="organization_technology">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e7" source="attacker_threat_actor_lead" target="malware_bledoor">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e8" source="attacker_threat_actor_hades" target="malware_payloadbin">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e9" source="attacker_threat_actor_hive" target="organization_small_and_medium_sized_business">
+      <data key="d3">attacks</data>
+    </edge>
+    <edge id="e10" source="malware_malware_socgholish" target="malware_wastedlocker_ransomware">
+      <data key="d3">delivers</data>
+    </edge>
+    <edge id="e11" source="malware_malware_trickbot" target="malware_ryuk_ransomware">
+      <data key="d3">delivers</data>
+    </edge>
+    <edge id="e12" source="attacker_threat_actor_conti" target="tool_lsass_credential_dumping">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e13" source="attacker_threat_actor_conti" target="organization_first_responders">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e14" source="malware_malware_phoenix_locker" target="attacker_evil_corp">
+      <data key="d3">is deployed by</data>
+    </edge>
+    <edge id="e15" source="attacker_threat_actor_hades" target="malware_phoenix_locker">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e16" source="malware_malware_avaddon" target="tool_powershell_scripts">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e17" source="malware_malware_macaw_locker" target="malware_characteristic_behavior_indirect_api_calls">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e18" source="malware_malware_anchor_dns" target="malware_anchor">
+      <data key="d3">is variant of</data>
+    </edge>
+    <edge id="e19" source="malware_malware_trickbot" target="event_phishing_campaigns">
+      <data key="d3">is delivered by</data>
+    </edge>
+    <edge id="e20" source="malware_malware_avaddon" target="infrastructure_phorpiextrik_botnet">
+      <data key="d3">is delivered by</data>
+    </edge>
+    <edge id="e21" source="malware_malware_lockbit" target="tool_anydesk">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e22" source="attacker_threat_actor_lead" target="tool_cobalt_strike">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e23" source="attacker_threat_actor_evil_corp" target="malware_socgholish">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e24" source="attacker_threat_actor_indrik_spider" target="malware_wastedlocker">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e25" source="attacker_threat_actor_fin6" target="malware_anchor_dns">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e26" source="malware_malware_anchor_dns" target="infrastructure_icmp">
+      <data key="d3">communicates over</data>
+    </edge>
+    <edge id="e27" source="attacker_threat_actor_lead" target="tool_cobaltstrike">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e28" source="attacker_threat_actor_fin6" target="malware_lockergoga">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e29" source="malware_malware_lockbit" target="tool_psexec">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e30" source="attacker_threat_actor_fin6" target="tool_psexec">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e31" source="attacker_threat_actor_hive" target="organization_manufacturing">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e32" source="malware_malware_anchor_dns" target="infrastructure_dns">
+      <data key="d3">communicates over</data>
+    </edge>
+    <edge id="e33" source="attacker_threat_actor_lead" target="tool_cobeacon">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e34" source="attacker_threat_actor_hive" target="organization_healthcare">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e35" source="malware_malware_lockbit" target="tool_winrar">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e36" source="malware_malware_lockbit" target="tool_cobalt_strike">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e37" source="attacker_threat_actor_fin6" target="tool_cobalt_strike">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e38" source="malware_malware_hive" target="malware_characteristic_capability_double-extortion">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e39" source="attacker_threat_actor_fin6" target="malware_anchor">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e40" source="malware_malware_conti" target="tool_cobalt_strike">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e41" source="attacker_threat_actor_lockbit" target="organization_education">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e42" source="attacker_threat_actor_darkside" target="organization_colonial_pipeline">
+      <data key="d3">attacked</data>
+    </edge>
+    <edge id="e43" source="attacker_threat_actor_hades" target="attacker_threat_actor_conti">
+      <data key="d3">PREDICTED:is</data>
+    </edge>
+    <edge id="e44" source="attacker_threat_actor_conti" target="vulnerability_cve-2018-13379">
+      <data key="d3">exploits</data>
+    </edge>
+    <edge id="e45" source="malware_malware_trickbot" target="malware_javascript_downloader">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e46" source="attacker_threat_actor_fin6" target="tool_mimikatz">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e47" source="attacker_threat_actor_darkside" target="organization_medical_educational_non-profits">
+      <data key="d3">avoids</data>
+    </edge>
+    <edge id="e48" source="attacker_threat_actor_fin6" target="tool_meterpreter">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e49" source="malware_malware_conti" target="tool_mimikatz">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e50" source="attacker_threat_actor_conti" target="organization_healthcare">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e51" source="malware_malware_payloadbin" target="malware_phoenix_locker">
+      <data key="d3">is derived from</data>
+    </edge>
+    <edge id="e52" source="malware_malware_macaw_locker" target="malware_characteristic_feature_custom_token_for_execution">
+      <data key="d3">requires</data>
+    </edge>
+    <edge id="e53" source="malware_malware_macaw_locker" target="malware_hades">
+      <data key="d3">is derived from</data>
+    </edge>
+    <edge id="e54" source="attacker_threat_actor_lead" target="malware_agentemis">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e55" source="malware_malware_socgholish" target="attacker_evil_corp">
+      <data key="d3">is used by</data>
+    </edge>
+    <edge id="e56" source="attacker_threat_actor_lead" target="malware_rbdoor">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e57" source="malware_malware_conti" target="tool_psexec">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e58" source="attacker_threat_actor_conti" target="tool_kerberoasting">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e59" source="attacker_threat_actor_conti" target="vulnerability_cve-2021-34527">
+      <data key="d3">exploits</data>
+    </edge>
+    <edge id="e60" source="malware_malware_darkside" target="infrastructure_data_leak_sites">
+      <data key="d3">delivers</data>
+    </edge>
+    <edge id="e61" source="attacker_threat_actor_hive" target="organization_business_services">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e62" source="malware_malware_trickbot" target="tool_empire">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e63" source="malware_malware_hive" target="tool_7-zip">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e64" source="attacker_threat_actor_hive" target="organization_transportation">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e65" source="malware_malware_trickbot" target="malware_conti_ransomware">
+      <data key="d3">delivers</data>
+    </edge>
+    <edge id="e66" source="attacker_threat_actor_hades" target="malware_wastedlocker">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e67" source="attacker_threat_actor_indrik_spider" target="attacker_evil_corp">
+      <data key="d3">is also known as</data>
+    </edge>
+    <edge id="e68" source="attacker_threat_actor_hades" target="location_russia">
+      <data key="d3">is backed by</data>
+    </edge>
+    <edge id="e69" source="attacker_threat_actor_conti" target="vulnerability_cve-2020-1472">
+      <data key="d3">exploits</data>
+    </edge>
+    <edge id="e70" source="malware_malware_darkside" target="tool_cobalt_strike">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e71" source="attacker_threat_actor_fin6" target="malware_anchor_dns">
+      <data key="d3">deploys</data>
+    </edge>
+    <edge id="e72" source="attacker_threat_actor_hive" target="event_call-back_phishing">
+      <data key="d3">engages in</data>
+    </edge>
+    <edge id="e73" source="malware_malware_wastedlocker" target="attacker_evil_corp">
+      <data key="d3">is used by</data>
+    </edge>
+    <edge id="e74" source="malware_malware_hades" target="attacker_evil_corp">
+      <data key="d3">is deployed by</data>
+    </edge>
+    <edge id="e75" source="malware_malware_hive" target="infrastructure_mega">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e76" source="malware_malware_trickbot" target="tool_cobalt_strike">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e77" source="attacker_threat_actor_fin6" target="tool_adfind">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e78" source="attacker_threat_actor_lockbit" target="credential_rdp">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e79" source="malware_malware_conti" target="malware_trickbot">
+      <data key="d3">deployed by</data>
+    </edge>
+    <edge id="e80" source="attacker_threat_actor_indrik_spider" target="tool_cobalt_strike">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e81" source="attacker_threat_actor_lockbit" target="organization_healthcare">
+      <data key="d3">targets</data>
+    </edge>
+    <edge id="e82" source="attacker_threat_actor_indrik_spider" target="malware_bitpaymer">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e83" source="attacker_threat_actor_indrik_spider" target="malware_dridex">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e84" source="attacker_threat_actor_lockbit" target="credential_vpn">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e85" source="attacker_threat_actor_lead" target="malware_winnti">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e86" source="malware_malware_hive" target="tool_rclone">
+      <data key="d3">uses</data>
+    </edge>
+    <edge id="e87" source="attacker_threat_actor_evil_corp" target="tool_cobalt_strike">
+      <data key="d3">uses</data>
+    </edge>
+  </graph>
+</graphml>
